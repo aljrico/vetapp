@@ -49,7 +49,7 @@ sidebar_server <- function(input, output, session, log_status) {
     if (!is.null(log_status()$logged)) {
       if (log_status()$logged) {
         message('Log in')
-        shinyjs::toggle(id = "my_sidebar", anim = TRUE, animType = "slide")
+        shinyjs::show(id = "my_sidebar", anim = TRUE, animType = "slide", time = 0.2)
       }
     }
   })
