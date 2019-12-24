@@ -20,8 +20,8 @@ login_page_ui <- function(id) {
       div(
         id = ns("login_form"),
         shinydashboard::box(
-          textInput(inputId = ns("userName"), label = "Username"),
-          passwordInput(inputId = ns("passwd"), label = "Password"),
+          textInput(inputId = ns("username"), label = "Username"),
+          passwordInput(inputId = ns("password"), label = "Password"),
           br(),
           shinyWidgets::actionBttn(
             inputId = ns("login_button"),
@@ -56,50 +56,54 @@ login_page_server <- function(input, output, session) {
 
   # Show Login Form
   shinyjs::show(id = "login_form")
-
-  # Define Variable
-  Logged <- FALSE
-  my_username <- "test"
-  my_password <- "test"
-  USER <- reactiveValues(Logged = Logged)
-
-  # Check username and password
-  observe({
-    if (USER$Logged == FALSE) {
-      if (!is.null(input$login_button)) {
-        if (input$login_button > 0) {
-          Username <- isolate(input$userName)
-          Password <- isolate(input$passwd)
-          is_username <- which(my_username == Username)
-          id_password <- which(my_password == Password)
-          if (length(is_username) > 0 & length(id_password) > 0) {
-            if (is_username == id_password) {
-              USER$Logged <- TRUE
-            }
-          }
-        }
+  
+  check_login <- function(username, password, click){
+    
+    # Default Status
+    user_info <- list(logged = FALSE, username = NA, click = NA)
+    
+    # Retrieve Credentials
+    my_username <- "test"
+    my_password <- "test"
+    
+    # Find Username and Password in the Credentials
+    is_username <- which(my_username == username)
+    is_password <- which(my_password == password)
+    
+    if(length(is_username) > 0 & length(is_password) > 0){
+      if(is_username == is_password){
+        user_info$logged <- TRUE
+        user_info$username <- username
       }
     }
-  })
-
-  # React to 'username' and 'password'
-  observeEvent(input$login_button, {
-    if (USER$Logged) {
-      shinyjs::show(id = "login_success")
-      shinyjs::hide(id = "login_failure")
-      shinyjs::show(id = "sidebar_menu")
-      shinyjs::hide(id = "login_form")
-      
-      shinyWidgets::sendSweetAlert(
-        session,
-        title = 'Welcome Back!',
-        type = 'success'
-        
-      )
-      
+    
+    return(user_info)
+  }
+  ui_reaction_to_log_status <- function(logged, click){
+    if(!is.null(click)){
+      if (logged) {
+        shinyjs::hide(id = "login_failure")
+        shinyjs::hide(id = "login_form")
+      }else{
+        shinyjs::show(id = "login_failure")
+      }
     }
-    if (!USER$Logged & !is.null(input$login_button)) shinyjs::show(id = "login_failure")
+
+  }
+  
+  log_status <- eventReactive(input$login_button, {
+
+      user_username <- input$username
+      user_password <- input$password
+      user_click    <- input$login_button
+
+    log <- check_login(username = user_username, password = user_password, click = user_click)
+    ui_reaction_to_log_status(logged = log$logged, click = user_click)
+    
+    log
   })
+  
+  return(log_status)
 }
 
 ## To be copied in the UI

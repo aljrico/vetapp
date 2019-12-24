@@ -3,6 +3,8 @@
 export(login_page_server)
 export(login_page_ui)
 export(run_app)
+export(sidebar_server)
+export(sidebar_ui)
 import(shiny)
 importFrom(glue,glue)
 importFrom(golem,with_golem_options)
