@@ -16,30 +16,35 @@
 login_page_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    shinyjs::hidden(
-      div(
-        id = ns("login_form"),
-        shinydashboard::box(
-          textInput(inputId = ns("username"), label = "Username"),
-          passwordInput(inputId = ns("password"), label = "Password"),
-          br(),
-          shinyWidgets::actionBttn(
-            inputId = ns("login_button"),
-            label = NULL,
-            style = "material-circle",
-            color = "default",
-            icon = icon("sign-in-alt")
-          ),
-          soldHeader = TRUE,
-          width = 4
+    div(
+      id = ns("login_box"),
+      style = "width: 500px; max-width: 100%; margin: 0 auto; padding: 20px;",
+      wellPanel(
+        div(
+          id = ns("login_form"),
+          textInput(inputId = ns("username"), label = tagList(icon("user"), "Username")),
+          passwordInput(inputId = ns("password"), label = tagList(icon("unlock-alt"), "Password")),
+          shinyjs::hidden(
+            div(
+              id = ns("login_failure"),
+              tags$p("Oops! Incorrect username or password!", style = "color: red; font-weight: 600;")
+            )
+          )
+        ),
+        shinyjs::hidden(
+          div(
+            id = ns("login_success"),
+            tags$p("Yay! Welcome Back!", style = "color: green; font-weight: 600;")
+          )
+        ),
+        br(),
+        shinyWidgets::actionBttn(
+          inputId = ns("login_button"),
+          label = NULL,
+          style = "material-circle",
+          color = "default",
+          icon = icon("sign-in-alt")
         )
-      )
-    ),
-
-    shinyjs::hidden(
-      div(
-        id = ns("login_failure"),
-        h5(paste0("Sorry, username and/or password do not check."))
       )
     )
   )
@@ -53,56 +58,72 @@ login_page_ui <- function(id) {
 
 login_page_server <- function(input, output, session) {
   ns <- session$ns
-
-  # Show Login Form
-  shinyjs::show(id = "login_form")
   
-  check_login <- function(username, password, click){
+  output$login_success_image <- renderImage({
     
+    # A temp file to save the output.
+    outfile <- tempfile(fileext='inst/app/resources/img/login_success.gif')
+    
+    gif(outfile)
+    hist(rnorm(input$n))
+    
+    dev.off()
+    
+    # Return a list containing the filename
+    list(src = outfile,
+         width = width,
+         height = height,
+         alt = "This is alternate text")
+  }, deleteFile = TRUE)
+
+  check_login <- function(username, password, click) {
+
     # Default Status
     user_info <- list(logged = FALSE, username = NA, click = NA)
-    
+
     # Retrieve Credentials
     my_username <- "test"
     my_password <- "test"
-    
+
     # Find Username and Password in the Credentials
     is_username <- which(my_username == username)
     is_password <- which(my_password == password)
-    
-    if(length(is_username) > 0 & length(is_password) > 0){
-      if(is_username == is_password){
+
+    if (length(is_username) > 0 & length(is_password) > 0) {
+      if (is_username == is_password) {
         user_info$logged <- TRUE
         user_info$username <- username
       }
     }
-    
+
     return(user_info)
   }
-  ui_reaction_to_log_status <- function(logged, click){
-    if(!is.null(click)){
+  ui_reaction_to_log_status <- function(logged, click) {
+    if (!is.null(click)) {
       if (logged) {
         shinyjs::hide(id = "login_failure")
         shinyjs::hide(id = "login_form")
-      }else{
+        shinyjs::hide(id = "login_button")
+        shinyjs::show(id = "login_success")
+        shinyjs::delay(2500, shinyjs::hide(id = "login_box", anim = TRUE, time = 0.1, animType = "fade"))
+      } else {
         shinyjs::show(id = "login_failure")
+        shinyjs::delay(1000, shinyjs::toggle(id = "login_failure", anim = TRUE, time = 1, animType = "fade"))
       }
     }
-
   }
-  
-  log_status <- eventReactive(input$login_button, {
 
-      user_username <- input$username
-      user_password <- input$password
-      user_click    <- input$login_button
+  log_status <- eventReactive(input$login_button, {
+    user_username <- input$username
+    user_password <- input$password
+    user_click <- input$login_button
 
     log <- check_login(username = user_username, password = user_password, click = user_click)
     ui_reaction_to_log_status(logged = log$logged, click = user_click)
-    
+
     log
   })
-  
+
   return(log_status)
 }
 
