@@ -9,7 +9,6 @@ app_ui <- function() {
     sidebar <- shinydashboard::dashboardSidebar(sidebar_ui("sidebar")),
     body <- shinydashboard::dashboardBody(
       shinyjs::useShinyjs(),
-
       login_page_ui("login_page")
     ),
     
@@ -26,7 +25,9 @@ golem_add_external_resources <- function(){
  
   tags$head(
     golem::activate_js(),
-    golem::favicon()
+    golem::favicon(),
+    tags$link(rel="stylesheet", type="text/css", href="inst/app/www/custom.css")
+    
     # Add here all the external resources
     # If you have a custom.css in the inst/app/www
     # Or for example, you can add shinyalert::useShinyalert() here

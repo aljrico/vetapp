@@ -48,7 +48,6 @@ sidebar_server <- function(input, output, session, log_status) {
   observeEvent(log_status()$click, {
     if (!is.null(log_status()$logged)) {
       if (log_status()$logged) {
-        message('Log in')
         shinyjs::show(id = "my_sidebar", anim = TRUE, animType = "slide", time = 0.2)
       }
     }
