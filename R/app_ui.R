@@ -9,7 +9,9 @@ app_ui <- function() {
     sidebar <- shinydashboard::dashboardSidebar(sidebar_ui("sidebar")),
     body <- shinydashboard::dashboardBody(
       shinyjs::useShinyjs(),
-      login_page_ui("login_page")
+      login_page_ui("login_page"),
+      shinydashboard::tabItems(register_form_ui("register_form"))
+
     ),
     
     shinydashboard::dashboardPage(header, sidebar, body, skin = "black")

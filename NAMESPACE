@@ -2,6 +2,8 @@
 
 export(login_page_server)
 export(login_page_ui)
+export(register_form_server)
+export(register_form_ui)
 export(run_app)
 export(sidebar_server)
 export(sidebar_ui)
