@@ -30,13 +30,7 @@ sidebar_ui <- function(id) {
     }
     return(m)
   }
-  
-  
-  sidebar_elements <- 
-    jsonlite::read_json('inst/app/www/json/sidebar_elements.json') %>% 
-    digest_json()
-    
-    
+
   ns <- NS(id)
   tagList(
     shinyjs::hidden(

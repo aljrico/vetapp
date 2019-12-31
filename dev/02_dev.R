@@ -11,7 +11,7 @@ golem::add_module(name = "register_form") # Name of the module
 
 ## 2.2 Add dependencies
 
-usethis::use_package("shinyWidgets") # To call each time you need a new package
+usethis::use_package("stringr") # To call each time you need a new package
 
 ## 2.3 Add tests
 

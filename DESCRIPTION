@@ -2,7 +2,7 @@ Package: vetapp
 Title: vetapp
 Version: 0.0.0.9000
 Authors@R: person('Alejandro', 'J Rico', email = 'aljrico@gmail.com', role = c('cre', 'aut'))
-Description: Veterinary Clinic management tool
+Description: Veterinary Clinic management tool.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,7 +21,9 @@ Imports:
     googlesheets,
     googledrive,
     shinydashboardPlus,
-    shinyWidgets
+    shinyWidgets,
+    magrittr,
+    stringr
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0),
