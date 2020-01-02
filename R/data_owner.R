@@ -21,7 +21,7 @@ setClass(
 
 #' An S4 generic to update existing data of some specific class
 #' 
-#' 
+#' @param owner_data A data.frame, the existing file of Owners' Data
 setGeneric(
   "updateData",
   function(owner_data) standardGeneric("updateData"),
@@ -30,6 +30,8 @@ setGeneric(
 
 
 #' An S4 method to update the existing data of class 'owner_data'
+#' 
+#' @param owner_data An S4 object of class 'owner_data'
 setMethod(
   "updateData",
   "owner_data",

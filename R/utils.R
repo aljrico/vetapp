@@ -14,6 +14,7 @@ NULL
 #' @rdname slotApply
 #' @param x object to be looped upoon
 #' @param FUN custom function to be applied upon the object
+#' @param ... further parameters to be carried over to the custom function
 
 slotApply <- function(x,FUN,...){
   cl <- class(x)

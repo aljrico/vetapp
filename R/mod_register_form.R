@@ -148,7 +148,7 @@ register_form_server <- function(input, output, session) {
     )
 
     new_owner <-
-      new("owner_details",
+      new("owner_data",
         first_name = input[["owner_first_name"]],
         last_name = input[["owner_last_name"]],
         street_name = input[["owner_street_name"]],
