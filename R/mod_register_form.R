@@ -154,7 +154,7 @@ register_form_server <- function(input, output, session) {
         street_name = input[["owner_street_name"]],
         post_code = input[["owner_post_code"]],
         email = input[["owner_email"]],
-        phone_number = input[["owner_phone_number"]]
+        phone_number = input[["owner_phone_number"]] %>% stringr::str_remove_all(' ')
       )
     
     updateData(new_owner)

@@ -38,15 +38,33 @@ setMethod(
   function(owner_data) {
     file_name <- "owner_files.csv"
     new_log   <- slotApply(owner_data, function(x) x)
+    
+    google_app <- httr::oauth_app(
+      appname = "vetApp",
+      key = "251575276543-m3emm4p2f5c530v183ddgmldget197d5.apps.googleusercontent.com",
+      secret = "uYHgPvfwZxIOQYZ0XNSdI--t"
+    )
+    
+    google_key = "AIzaSyBi9XD393GH83TTPDvBdYmsOf_-JTczEPQ"
+    
+    googledrive::drive_auth_configure(app = google_app, api_key = google_key)
+    
+    tmp <- tempfile(fileext = ".csv")
+    googledrive::drive_download(file = 'vetApp/owner_files.csv', path = tmp)
+    existing_file <- as.data.frame(data.table::fread(tmp))
+    updated_file <- dplyr::bind_rows(existing_file, new_log)
+# 
+#     if (file.exists(file_name)) {
+#       old_file     <- data.table::fread(file_name)
+#       new_file     <- as.data.frame(new_log)
+#       updated_file <- dplyr::bind_rows(new_file, old_file)
+#     } else {
+#       updated_file <- as.data.frame(new_log)
+#     }
+    
+    googledrive::drive_upload('data-raw/owner_files.csv', path = 'vetApp/')
 
-    if (file.exists(file_name)) {
-      old_file     <- data.table::fread(file_name)
-      new_file     <- as.data.frame(new_log)
-      updated_file <- dplyr::bind_rows(new_file, old_file)
-    } else {
-      updated_file <- as.data.frame(new_log)
-    }
-    data.table::fwrite(updated_file, file_name)
+    # data.table::fwrite(updated_file, file_name)
     message("Owner details successfully updated")
   }
 )
