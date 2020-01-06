@@ -10,25 +10,20 @@ Imports:
     shiny,
     golem,
     processx,
-    attempt,
     DT,
     glue,
     htmltools,
     dplyr,
-    data.table,
     shinyjs,
     shinydashboard,
-    googlesheets,
-    googledrive,
     shinydashboardPlus,
     shinyWidgets,
     magrittr,
     stringr,
-    methods,
     rdrop2,
     R6,
     feather,
-    httr
+    waiter
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0),
