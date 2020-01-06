@@ -1,4 +1,4 @@
-# Module Server
+# Housekeeping function to remove all temporary files when the app closes
     
 #' @rdname mod_clean_up
 #' @export
