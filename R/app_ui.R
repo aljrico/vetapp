@@ -11,6 +11,7 @@ app_ui <- function() {
     # Leave this function for adding external resources
     add_external_resources(),
     shinyjs::useShinyjs(),
+    waiter::use_waiter(),
 
 
     login_page_ui("login_page"),

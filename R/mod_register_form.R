@@ -141,6 +141,10 @@ register_form_server <- function(input, output, session) {
 
   observeEvent(input[["submit_form"]], {
     
+    waiter::show_waiter(
+      waiter::spin_folding_cube()
+    )
+    
     new_log <- 
       data.frame(
         first_name = input[["owner_first_name"]],
@@ -153,6 +157,8 @@ register_form_server <- function(input, output, session) {
     owner_files <- class_owner_files$new()
     owner_files$add_log(new_log)
     owner_files$upload_data()
+    
+    waiter::hide_waiter()
     
     shinyWidgets::sendSweetAlert(
       session = session,
