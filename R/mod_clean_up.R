@@ -1,5 +1,6 @@
 # Housekeeping function to remove all temporary files when the app closes
     
+#' @title Clean Up Module
 #' @rdname mod_clean_up
 #' @export
 #' @keywords internal

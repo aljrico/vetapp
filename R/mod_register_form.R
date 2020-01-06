@@ -167,6 +167,8 @@ register_form_server <- function(input, output, session) {
       type = "success"
     )
     
+    message('Owner Data Uploaded')
+    
   })
 }
 
