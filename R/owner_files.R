@@ -4,7 +4,7 @@ class_owner_files <-
       data = NULL,
 
       files = list(
-        local_file = "tmp/owner_files.feather",
+        local_file = "inst/app/tmp/owner_files.feather",
         remote_file = "vetApp/owner_files.feather",
         remote_directory = "vetApp/",
         token_key = NULL
