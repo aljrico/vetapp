@@ -140,15 +140,9 @@ register_form_server <- function(input, output, session) {
   })
 
   observeEvent(input[["submit_form"]], {
-    shinyWidgets::sendSweetAlert(
-      session = session,
-      title = "New Owner Submitted Correctly!",
-      text = "",
-      type = "success"
-    )
-
-    new_owner <-
-      new("owner_data",
+    
+    new_log <- 
+      data.frame(
         first_name = input[["owner_first_name"]],
         last_name = input[["owner_last_name"]],
         street_name = input[["owner_street_name"]],
@@ -156,8 +150,17 @@ register_form_server <- function(input, output, session) {
         email = input[["owner_email"]],
         phone_number = input[["owner_phone_number"]] %>% stringr::str_remove_all(' ')
       )
+    owner_files <- class_owner_files$new()
+    owner_files$add_log(new_log)
+    owner_files$upload_data()
     
-    updateData(new_owner)
+    shinyWidgets::sendSweetAlert(
+      session = session,
+      title = "Data Submitted Successfully!",
+      text = "",
+      type = "success"
+    )
+    
   })
 }
 

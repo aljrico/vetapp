@@ -7,11 +7,11 @@
 
 ## 2.1 Add modules
 ##
-golem::add_module(name = "register_form") # Name of the module
+golem::add_module(name = "clean_up") # Name of the module
 
 ## 2.2 Add dependencies
 
-usethis::use_package("googledrive") # To call each time you need a new package
+usethis::use_package("httr") # To call each time you need a new package
 
 ## 2.3 Add tests
 
