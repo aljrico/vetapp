@@ -7,11 +7,11 @@ class_owner_files <-
         local_file = "inst/app/tmp/owner_files.feather",
         remote_file = "vetApp/owner_files.feather",
         remote_directory = "vetApp/",
-        token_key = NULL
+        token_key_file = "inst/app/credentials/token.rds"
       ),
 
       initialize = function() {
-        self$files$token_key <- readRDS("token.rds")
+        self$files$token_key <- readRDS(self$files$token_key_file)
         rdrop2::drop_download(
           path = self$files$remote_file, 
           local_path = self$files$local_file, 
@@ -26,7 +26,8 @@ class_owner_files <-
           street_name = owner_data[["street_name"]],
           post_code = owner_data[["post_code"]],
           email = owner_data[["email"]],
-          phone_number = owner_data[["phone_number"]] %>% as.character()
+          phone_number = owner_data[["phone_number"]] %>% as.character(),
+          time_stamp = Sys.time()
         )
       },
       add_log = function(new_log) {
