@@ -7,7 +7,7 @@
     
 mod_clean_up_server <- function(input, output, session){
   cancel.onSessionEnded <- session$onSessionEnded(function() {
-    temporary_files <- list.files(path = 'tmp/', full.names = TRUE, recursive = TRUE)
+    temporary_files <- list.files(pattern = ".feather", full.names = TRUE, recursive = TRUE)
     file.remove(temporary_files)
     message('Temporary Files Removed Successfully')
   })

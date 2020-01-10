@@ -7,7 +7,6 @@ add_external_resources <- function() {
   tags$head(
     golem::activate_js(),
     golem::favicon(),
-    tags$link(rel = "stylesheet", type = "text/css", href = "inst/app/www/custom.css"),
     add_external_js(),
     add_external_css()
   )
