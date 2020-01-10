@@ -58,23 +58,6 @@ login_page_ui <- function(id) {
 
 login_page_server <- function(input, output, session) {
   ns <- session$ns
-  
-  output$login_success_image <- renderImage({
-    
-    # A temp file to save the output.
-    outfile <- tempfile(fileext='inst/app/resources/img/login_success.gif')
-    
-    gif(outfile)
-    hist(rnorm(input$n))
-    
-    dev.off()
-    
-    # Return a list containing the filename
-    list(src = outfile,
-         width = width,
-         height = height,
-         alt = "This is alternate text")
-  }, deleteFile = TRUE)
 
   check_login <- function(username, password, click) {
 
@@ -126,9 +109,3 @@ login_page_server <- function(input, output, session) {
 
   return(log_status)
 }
-
-## To be copied in the UI
-# mod_login_page_ui("login_page_ui_1")
-
-## To be copied in the server
-# callModule(mod_login_page_server, "login_page_ui_1")

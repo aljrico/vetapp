@@ -6,6 +6,9 @@
 \usage{
 run_app(...)
 }
+\arguments{
+\item{...}{Carries over the list of arguments available in golem::with_golem_options}
+}
 \description{
-Run the Shiny Application
+See \code{shiny::\link[shiny:shinyApp]{shinyApp}} for details.
 }
