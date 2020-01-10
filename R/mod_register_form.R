@@ -24,12 +24,13 @@ register_form_ui <- function(id) {
     "Fish"
   )
 
-  shinydashboard::tabItem(
+  bs4Dash::bs4TabItem(
     tabName = "register_form",
     h1("Register Form"),
-    shinydashboard::box(
+    bs4Dash::box(
       title = strong("New Pet!"),
       status = "primary",
+      side = 'left',
       textInput(
         inputId = ns("pet_name"),
         label = "Pet's Name",
@@ -64,9 +65,10 @@ register_form_ui <- function(id) {
         icon = icon("save")
       )
     ),
-    shinydashboard::box(
+    bs4Dash::box(
       title = strong("New Owner!"),
       status = "success",
+      side = 'right',
       textInput(
         inputId = ns("owner_first_name"),
         label = "Full name",
@@ -140,35 +142,33 @@ register_form_server <- function(input, output, session) {
   })
 
   observeEvent(input[["submit_form"]], {
-    
     waiter::show_waiter(
       waiter::spin_folding_cube()
     )
-    
-    new_log <- 
+
+    new_log <-
       data.frame(
         first_name = input[["owner_first_name"]],
         last_name = input[["owner_last_name"]],
         street_name = input[["owner_street_name"]],
         post_code = input[["owner_post_code"]],
         email = input[["owner_email"]],
-        phone_number = input[["owner_phone_number"]] %>% stringr::str_remove_all(' ')
+        phone_number = input[["owner_phone_number"]] %>% stringr::str_remove_all(" ")
       )
     owner_files <- class_owner_files$new()
     owner_files$add_log(new_log)
     owner_files$upload_data()
-    
+
     waiter::hide_waiter()
-    
+
     shinyWidgets::sendSweetAlert(
       session = session,
       title = "Data Submitted Successfully!",
       text = "",
       type = "success"
     )
-    
-    message('Owner Data Uploaded')
-    
+
+    message("Owner Data Uploaded")
   })
 }
 

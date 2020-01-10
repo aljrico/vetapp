@@ -14,38 +14,21 @@
 #' @export
 #' @importFrom shiny NS tagList
 sidebar_ui <- function(id) {
-  
-  digest_json <- function(json){
-    attrs <- names(json[[1]])
-    
-    m <- 
-      matrix(nrow = length(json), ncol = length(attrs)) %>% 
-      as.data.frame()
-    colnames(m) <- attrs
-    
-    for(i in seq_along(json)){
-      for(j in seq_along(attrs)){
-        m[i, attrs[[j]]] <- json[[i]][[attrs[[j]]]]
-      }
-    }
-    return(m)
-  }
-
   ns <- NS(id)
   tagList(
     shinyjs::hidden(
       div(
         id = ns("my_sidebar"),
-        shinydashboard::sidebarMenu(
+        bs4Dash::bs4SidebarMenu(
           id = ns("tabs"),
-          shinydashboard::menuItem(
+          bs4Dash::bs4SidebarMenuItem(
             "Home",
-            icon = icon("home"),
+            icon = "home",
             tabName = "home"
           ),
-          shinydashboard::menuItem(
+          bs4Dash::bs4SidebarMenuItem(
             "Register Form",
-            icon = icon("edit"),
+            icon = "edit",
             tabName = "register_form"
           )
         )

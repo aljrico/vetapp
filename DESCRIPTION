@@ -15,8 +15,6 @@ Imports:
     htmltools,
     dplyr,
     shinyjs,
-    shinydashboard,
-    shinydashboardPlus,
     shinyWidgets,
     magrittr,
     stringr,

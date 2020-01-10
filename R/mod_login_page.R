@@ -15,35 +15,39 @@
 #' @importFrom shiny NS tagList
 login_page_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    div(
-      id = ns("login_box"),
-      style = "width: 500px; max-width: 100%; margin: 0 auto; padding: 20px;",
-      wellPanel(
-        div(
-          id = ns("login_form"),
-          textInput(inputId = ns("username"), label = tagList(icon("user"), "Username")),
-          passwordInput(inputId = ns("password"), label = tagList(icon("unlock-alt"), "Password")),
+  bs4Dash::bs4TabItem(
+    tabName = "login",
+
+    tagList(
+      div(
+        id = ns("login_box"),
+        style = "width: 500px; max-width: 100%; margin: 0 auto; padding: 20px;",
+        wellPanel(
+          div(
+            id = ns("login_form"),
+            textInput(inputId = ns("username"), label = tagList(icon("user"), "Username")),
+            passwordInput(inputId = ns("password"), label = tagList(icon("unlock-alt"), "Password")),
+            shinyjs::hidden(
+              div(
+                id = ns("login_failure"),
+                tags$p("Oops! Incorrect username or password!", style = "color: red; font-weight: 600;")
+              )
+            )
+          ),
           shinyjs::hidden(
             div(
-              id = ns("login_failure"),
-              tags$p("Oops! Incorrect username or password!", style = "color: red; font-weight: 600;")
+              id = ns("login_success"),
+              tags$p("Yay! Welcome Back!", style = "color: green; font-weight: 600;")
             )
+          ),
+          br(),
+          shinyWidgets::actionBttn(
+            inputId = ns("login_button"),
+            label = NULL,
+            style = "material-circle",
+            color = "default",
+            icon = icon("sign-in-alt")
           )
-        ),
-        shinyjs::hidden(
-          div(
-            id = ns("login_success"),
-            tags$p("Yay! Welcome Back!", style = "color: green; font-weight: 600;")
-          )
-        ),
-        br(),
-        shinyWidgets::actionBttn(
-          inputId = ns("login_button"),
-          label = NULL,
-          style = "material-circle",
-          color = "default",
-          icon = icon("sign-in-alt")
         )
       )
     )
