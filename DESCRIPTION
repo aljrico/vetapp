@@ -23,7 +23,8 @@ Imports:
     rdrop2,
     R6,
     feather,
-    waiter
+    waiter,
+    bs4Dash
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0),

@@ -11,7 +11,7 @@ golem::add_module(name = "clean_up") # Name of the module
 
 ## 2.2 Add dependencies
 
-usethis::use_package("waiter") # To call each time you need a new package
+usethis::use_package("bs4Dash") # To call each time you need a new package
 
 ## 2.3 Add tests
 
