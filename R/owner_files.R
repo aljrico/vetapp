@@ -41,6 +41,9 @@ class_owner_files <-
           path = self$files$remote_directory, 
           dtoken = self$files$token_key, 
           mode = "overwrite")
+        
+        shiny_log('Data uploaded to dropbox', 'owner files')
+        
       }
     )
   )
