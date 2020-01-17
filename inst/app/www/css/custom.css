@@ -151,3 +151,8 @@
         top: 38px;
     }
 }
+
+.action-bttn .my-button
+{
+    color: red;
+}

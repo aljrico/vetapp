@@ -5,7 +5,7 @@ app_ui <- function() {
   # List the first level UI elements here
 
   sidebar <- bs4Dash::bs4DashSidebar(
-    skin = "dark",
+    skin = "light",
     status = "primary",
     title = "VetApp",
     brandColor = "primary",
@@ -23,6 +23,7 @@ app_ui <- function() {
 
     bs4Dash::bs4TabItems(
       login_page_ui("login_page"),
+      clients_database_ui("clients_database"),
       register_form_ui("register_form")
     )
   )

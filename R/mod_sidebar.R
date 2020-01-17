@@ -27,6 +27,11 @@ sidebar_ui <- function(id) {
             tabName = "home"
           ),
           bs4Dash::bs4SidebarMenuItem(
+            "Client's Database",
+            icon = "server",
+            tabName = "clients_database"
+          ),
+          bs4Dash::bs4SidebarMenuItem(
             "Register Form",
             icon = "edit",
             tabName = "register_form"
